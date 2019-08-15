@@ -1,0 +1,45 @@
+Job started, waitting for statefulsets ready.
+Statefulsets prepare ready.
+577e2c3a-d874-458f-888b-0a47924627e4-0:['/bin/sh', '-c', 'python /opt/letrain/inference/classification/class_inference.py  --checkpoint_dir /lico/swt/train_dir --model_name=resnet_v2_50 --output_dir /lico/111/output --input_dir /lico/letrain_image_classification_example/image_classification_example/dataset_dir/validation/imgs/airplane']
+Using TensorFlow backend.
+
+2019-08-07 07:47:52.925554: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2019-08-07 07:47:53.209756: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x479be90 executing computations on platform CUDA. Devices:
+2019-08-07 07:47:53.209855: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): Tesla V100-PCIE-32GB, Compute Capability 7.0
+2019-08-07 07:47:53.215985: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2600000000 Hz
+
+2019-08-07 07:47:53.227498: I tensorflow/compiler/xla/service/service.cc:150] XLA service 0x4914430 executing computations on platform Host. Devices:
+2019-08-07 07:47:53.227542: I tensorflow/compiler/xla/service/service.cc:158]   StreamExecutor device (0): <undefined>, <undefined>
+2019-08-07 07:47:53.227846: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1433] Found device 0 with properties: 
+name: Tesla V100-PCIE-32GB major: 7 minor: 0 memoryClockRate(GHz): 1.38
+pciBusID: 0000:2f:00.0
+totalMemory: 31.72GiB freeMemory: 31.41GiB
+2019-08-07 07:47:53.227877: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1512] Adding visible gpu devices: 0
+2019-08-07 07:47:53.230441: I tensorflow/core/common_runtime/gpu/gpu_device.cc:984] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-08-07 07:47:53.230467: I tensorflow/core/common_runtime/gpu/gpu_device.cc:990]      0 
+2019-08-07 07:47:53.230479: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1003] 0:   N 
+
+2019-08-07 07:47:53.234415: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30555 MB memory) -> physical GPU (device: 0, name: Tesla V100-PCIE-32GB, pci bus id: 0000:2f:00.0, compute capability: 7.0)
+Traceback (most recent call last):
+  File "/opt/letrain/inference/classification/class_inference.py", line 305, in <module>
+    tf.app.run()
+  File "/usr/local/lib/python2.7/dist-packages/tensorflow/python/platform/app.py", line 125, in run
+    _sys.exit(main(argv))
+  File "/opt/letrain/inference/classification/class_inference.py", line 303, in main
+    inference()
+  File "/opt/letrain/inference/classification/class_inference.py", line 210, in inference
+    with open(input_files, 'r') as f:
+UnboundLocalError: local variable 'input_files' referenced before assignment
+
+['/opt/letrain-v1.2.19.1/inference/classification', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python2.7/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/usr/local/lib/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages', '/opt/letrain/lib', '/opt/letrain/engine', '/opt/letrain/inference/classification', '/opt/letrain/lib', '/opt/letrain/engine', '/opt/letrain/inference', '/opt/letrain/applications']
+['/opt/letrain-v1.2.19.1/inference/classification', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-x86_64-linux-gnu', '/usr/lib/python2.7/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/usr/local/lib/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages', '/opt/letrain/lib', '/opt/letrain/engine', '/opt/letrain/inference/classification', '/opt/letrain/lib', '/opt/letrain/engine', '/opt/letrain/inference', '/opt/letrain/applications', '/opt/letrain/lib', '/opt/letrain/engine', '/opt/letrain/applications/facial_analysis', '/opt/letrain/applications']
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+You are in data scientist mode
+
+Job ended!

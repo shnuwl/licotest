@@ -1,0 +1,84 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+    name: 577e2c3a-d874-458f-888b-0a47924627e4
+    namespace: swt
+spec:
+    selector:
+        matchLabels:
+            app: lico
+    serviceName: lico
+    replicas: 1
+    template:
+        metadata:
+          labels:
+            app: lico
+        spec:
+            containers:
+            - name: 577e2c3a-d874-458f-888b-0a47924627e4
+              image: 10.240.212.106:5000/nihuijun:letrain-1.2-gpu-0718
+              resources: 
+                requests:
+                  cpu: 4
+                  nvidia.com/gpu: 1
+                limits:
+                  cpu: 4
+                  nvidia.com/gpu: 1
+              volumeMounts:
+              - name: share-dir
+                mountPath: /lico
+              workingDir: /lico/111
+            volumes:
+              - name: share-dir
+                persistentVolumeClaim:
+                  claimName: swt-pvc
+            restartPolicy: Always
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: swt
+  name: 577e2c3a-d874-458f-888b-0a47924627e4
+  labels:
+    lico.account: ignore
+spec:
+  backoffLimit: 1
+  template:
+    metadata:
+      name: 577e2c3a-d874-458f-888b-0a47924627e4
+    spec:
+      containers:
+      - name: 577e2c3a-d874-458f-888b-0a47924627e4
+        image: 10.240.212.106:5000/lico/lico-k8s-client:daily
+        command:
+         - k8s-dl-run
+        args: 
+         - '--type'
+         - 'single'
+         - '--run_file'
+         - '/opt/letrain/inference/classification/class_inference.py'
+         - '--namespace'
+         - 'swt'
+         - '--statefulsets'
+         - '577e2c3a-d874-458f-888b-0a47924627e4'
+         - '--timeout'
+         - '300'
+         - '--log_file'
+         - '/lico/111/ttt-201908070746.log'
+         - '--extra_args'
+         - ' --checkpoint_dir /lico/swt/train_dir --model_name=resnet_v2_50
+--output_dir /lico/111/output
+--input_dir /lico/letrain_image_classification_example/image_classification_example/dataset_dir/validation/imgs/airplane'
+        volumeMounts:
+        - name: share-dir
+          mountPath: /lico
+        workingDir: /lico/111
+      
+      volumes:
+        - name: share-dir
+          persistentVolumeClaim:
+            claimName: swt-pvc
+      restartPolicy: Never
